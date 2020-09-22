@@ -39,7 +39,18 @@ public class Spawner : MonoBehaviour
         // Get image component
         Image imageHolderSprite = imageHolderDuplicate.GetComponent<Image>();
         
-        imageHolderSprite.sprite = crewMates[0]; // Set sprite
+        // Set random sprite
+        int randomNumber = Random.Range(0, 2);
+        int randomIndex = Random.Range(0, impostors.Length+1);
+        switch (randomNumber)
+        {
+            case 0:
+                imageHolderSprite.sprite = crewMates[randomIndex]; // Set sprite
+                break;
+            case 1 :
+                imageHolderSprite.sprite = impostors[randomIndex]; // Set sprite
+                break;
+        }
     }
     
     private IEnumerator SpawnDelay(float delay)
