@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
@@ -21,18 +22,33 @@ public class Spawner : MonoBehaviour
     {
         if (isStarting)
         {
-            isStarting = false;
-            SpawnPictures();
+            StartCoroutine(SpawnDelay(2f));
         }
     }
 
     private void SpawnPictures()
     {
+        // Set random xAxis
+        float xAxis = Random.Range(0, Screen.width);
+        
         // Duplicate image holder
-        GameObject imageHolderDuplicate = Instantiate(imageHolder, transform.position, Quaternion.identity, transform.parent);
+        GameObject imageHolderDuplicate = Instantiate(imageHolder,
+            new Vector3(xAxis, transform.position.y), 
+            Quaternion.identity, 
+            transform.parent);
         // Get image component
         Image imageHolderSprite = imageHolderDuplicate.GetComponent<Image>();
         
         imageHolderSprite.sprite = crewMates[0]; // Set sprite
+    }
+    
+    private IEnumerator SpawnDelay(float delay)
+    {
+        SpawnPictures();
+        isStarting = false;
+        
+        yield return new WaitForSeconds(delay);
+        
+        isStarting = true;
     }
 }
