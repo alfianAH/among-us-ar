@@ -6,6 +6,7 @@ public class GoalController : MonoBehaviour
     [SerializeField] private Text lifeText,
         scoreText;
     [SerializeField] private Spawner spawner;
+    [SerializeField] private GameObject gameOver;
     
     private BoxCollider2D goalCollider;
     
@@ -35,7 +36,10 @@ public class GoalController : MonoBehaviour
             maxLife -= 1; // Subtract maxLife
             
             if (maxLife < 0)
+            {
                 spawner.GameOver = true;
+                gameOver.SetActive(true);
+            }
             else
                 UpdateLifeText();
         }

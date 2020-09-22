@@ -9,7 +9,7 @@ public class ImageHolder : MonoBehaviour, IPointerDownHandler
 
     private void Update()
     {
-        if(spawner.GameOver) return;
+        if(spawner.GameOver) Destroy(gameObject);
         transform.Translate(0f, speed * Time.deltaTime, 0f);
     }
 

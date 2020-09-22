@@ -8,7 +8,8 @@ public class Timer : MonoBehaviour
         seconds = 59f,
         milliseconds;
     [SerializeField] private Spawner spawner;
-
+    [SerializeField] private GameObject gameOver;
+    
     private bool isCountingDown;
     private Text timerText;
 
@@ -48,6 +49,7 @@ public class Timer : MonoBehaviour
                 else // If time is up, ...
                 {
                     spawner.GameOver = true;
+                    gameOver.SetActive(true);
                 }
             }
 
