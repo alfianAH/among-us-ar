@@ -6,10 +6,17 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private Sprite[] crewMates, impostors;
     [SerializeField] private GameObject imageHolder;
-    [SerializeField] private bool isStarting;
+    [SerializeField] private bool isStarting,
+        gameOver;
     
     private BoxCollider2D spawnerCollider;
 
+    public bool GameOver
+    {
+        get => gameOver;
+        set => gameOver = value;
+    }
+    
     private void Start()
     {
         spawnerCollider = GetComponent<BoxCollider2D>();
@@ -20,7 +27,7 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if (isStarting)
+        if (isStarting && !gameOver)
         {
             StartCoroutine(SpawnDelay(2f));
         }
@@ -41,14 +48,18 @@ public class Spawner : MonoBehaviour
         
         // Set random sprite
         int randomNumber = Random.Range(0, 2);
-        int randomIndex = Random.Range(0, impostors.Length+1);
+        int randomIndex;
         switch (randomNumber)
         {
-            case 0:
+            case 0: // 0 is crewMate
+                randomIndex = Random.Range(0, crewMates.Length);
                 imageHolderSprite.sprite = crewMates[randomIndex]; // Set sprite
+                imageHolderDuplicate.tag = "CrewMate";
                 break;
-            case 1 :
+            case 1: // 1 is impostor
+                randomIndex = Random.Range(0, impostors.Length);
                 imageHolderSprite.sprite = impostors[randomIndex]; // Set sprite
+                imageHolderDuplicate.tag = "Impostor";
                 break;
         }
     }
