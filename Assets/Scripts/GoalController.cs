@@ -12,6 +12,12 @@ public class GoalController : MonoBehaviour
     private int maxLife = 3,
         score;
 
+    public int Score
+    {
+        get => score;
+        set => score = value;
+    }
+
     private void Start()
     {
         goalCollider = GetComponent<BoxCollider2D>();
@@ -47,7 +53,7 @@ public class GoalController : MonoBehaviour
         lifeText.text = maxLife.ToString();
     }
 
-    private void UpdateScoreText()
+    public void UpdateScoreText()
     {
         scoreText.text = score.ToString();
     }

@@ -49,6 +49,9 @@ public class Spawner : MonoBehaviour
             new Vector3(xAxis, transform.position.y), 
             Quaternion.identity, 
             transform.parent);
+        
+        imageHolderDuplicate.SetActive(true);
+        
         // Get image component
         Image imageHolderSprite = imageHolderDuplicate.GetComponent<Image>();
         
