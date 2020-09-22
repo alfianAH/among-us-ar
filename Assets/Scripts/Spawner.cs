@@ -16,6 +16,12 @@ public class Spawner : MonoBehaviour
         get => gameOver;
         set => gameOver = value;
     }
+
+    public bool IsStarting
+    {
+        get => isStarting;
+        set => isStarting = value;
+    }
     
     private void Start()
     {
@@ -29,7 +35,7 @@ public class Spawner : MonoBehaviour
     {
         if (isStarting && !gameOver)
         {
-            StartCoroutine(SpawnDelay(2f));
+            StartCoroutine(SpawnDelay(1.5f));
         }
     }
 

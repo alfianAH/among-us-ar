@@ -7,8 +7,9 @@ public class Timer : MonoBehaviour
         minutes = 1f,
         seconds = 59f,
         milliseconds;
-    [SerializeField] private bool isCountingDown;
+    [SerializeField] private Spawner spawner;
 
+    private bool isCountingDown;
     private Text timerText;
 
     public bool IsCountingDown
@@ -16,7 +17,7 @@ public class Timer : MonoBehaviour
         get => isCountingDown;
         set => isCountingDown = value;
     }
-
+    
     private void Start()
     {
         timerText = GetComponent<Text>();
@@ -25,30 +26,33 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
-        if (!isCountingDown) return;
-        milliseconds += Time.deltaTime;
-            
-        // If milliseconds is greater or equals to 1, ...
-        if(milliseconds >= 1.0f)
+        if (!spawner.GameOver && isCountingDown)
         {
-            milliseconds -= 1.0f;
-                
-            // If time is not up, ...
-            if(seconds > 0 || minutes > 0)
+            milliseconds += Time.deltaTime;
+
+            // If milliseconds is greater or equals to 1, ...
+            if (milliseconds >= 1.0f)
             {
-                seconds--; // Decrease seconds
-                if (seconds < 0.0f)
+                milliseconds -= 1.0f;
+
+                // If time is not up, ...
+                if (seconds > 0 || minutes > 0)
                 {
-                    seconds = 59; // Repeat seconds
-                    minutes--; // Decrease minutes;
+                    seconds--; // Decrease seconds
+                    if (seconds < 0.0f)
+                    {
+                        seconds = 59; // Repeat seconds
+                        minutes--; // Decrease minutes;
+                    }
+                }
+                else // If time is up, ...
+                {
+                    spawner.GameOver = true;
                 }
             }
-            else // If time is up, ...
-            {
-                isCountingDown = false;
-            }
+
+            UpdateTimerText();
         }
-        UpdateTimerText();
     }
 
     private void UpdateTimerText()
