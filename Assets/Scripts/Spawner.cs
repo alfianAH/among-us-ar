@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour
     {
         if (isStarting && !gameOver)
         {
-            StartCoroutine(SpawnDelay(1.5f));
+            StartCoroutine(SpawnDelay(1f));
         }
     }
 
